@@ -97,7 +97,7 @@ export function ServicesSection() {
               ))}
             </div>
 
-            <Link href="/case-studies" className="block">
+            <Link href={`/case-studies#${service.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`} className="block">
               <Button variant="ghost" className="mt-4 text-[#D4AF37] hover:text-[#FFEB3B] hover:bg-[#D4AF37]/10 w-full group">
                 Learn More
                 <ChevronRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />

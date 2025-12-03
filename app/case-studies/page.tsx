@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { Navigation } from '@/components/sections/Navigation';
 import { Footer } from '@/components/sections/Footer';
 import { Card } from '@/components/ui/card';
@@ -54,6 +55,18 @@ const caseStudies = [
 ];
 
 export default function CaseStudies() {
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      setTimeout(() => {
+        const element = document.querySelector(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 100);
+    }
+  }, []);
+
   return (
     <div className="relative min-h-screen bg-[#0A0A0A] text-white overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#D4AF37]/10 via-[#0A0A0A] to-[#0A0A0A]"></div>
@@ -121,12 +134,13 @@ export default function CaseStudies() {
             {caseStudies.map((study, index) => (
               <Card
                 key={index}
-                className="group bg-white/5 border-white/10 hover:border-[#D4AF37]/50 transition-all duration-300 overflow-hidden"
+                id={study.category.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}
+                className="group bg-white/5 border-white/10 hover:border-[#D4AF37]/50 transition-all duration-300 overflow-hidden scroll-mt-24"
               >
                 <div className="relative h-48 overflow-hidden">
                   <img
                     src={study.image}
-                    alt={study.title}
+                    alt={study.category}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] to-transparent"></div>
@@ -136,9 +150,8 @@ export default function CaseStudies() {
                 </div>
 
                 <div className="p-6">
-                  <div className="text-sm text-[#D4AF37] mb-2">{study.client}</div>
                   <h3 className="text-2xl font-bold mb-3 group-hover:text-[#D4AF37] transition-colors">
-                    {study.title}
+                    {study.category}
                   </h3>
                   <p className="text-white/70 mb-4 leading-relaxed">
                     {study.description}

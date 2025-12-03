@@ -1,10 +1,18 @@
+'use client';
+
+import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import { ContactFormModal } from '@/components/ui/ContactFormModal';
 
 export function CTASection() {
+  const [isContactFormOpen, setIsContactFormOpen] = useState(false);
+
   return (
-    <section className="container mx-auto px-6 py-24">
+    <>
+      <ContactFormModal isOpen={isContactFormOpen} onClose={() => setIsContactFormOpen(false)} />
+      <section className="container mx-auto px-6 py-24">
       <Card className="relative overflow-hidden bg-white/5 border-white/10 p-12 text-center">
         <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
         <div className="relative z-10">
@@ -15,7 +23,7 @@ export function CTASection() {
             Join hundreds of companies already leveraging AI to transform their operations
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button size="lg" className="bg-gradient-to-r from-[#D4AF37] to-[#FFEB3B] hover:from-[#FFEB3B] hover:to-[#D4AF37] text-[#0A0A0A] font-semibold text-lg px-8">
+            <Button size="lg" onClick={() => setIsContactFormOpen(true)} className="bg-gradient-to-r from-[#D4AF37] to-[#FFEB3B] hover:from-[#FFEB3B] hover:to-[#D4AF37] text-[#0A0A0A] font-semibold text-lg px-8">
               Schedule Consultation
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
@@ -25,6 +33,7 @@ export function CTASection() {
           </div>
         </div>
       </Card>
-    </section>
+      </section>
+    </>
   );
 }
